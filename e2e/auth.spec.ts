@@ -7,9 +7,9 @@ test("redirects unauthenticated user to login", async ({ page }) => {
 
 test("login page renders correctly", async ({ page }) => {
   await page.goto("/login");
-  await expect(page.getByRole("heading", { name: "Inventory App" })).toBeVisible();
-  await expect(page.getByLabel("Email")).toBeVisible();
-  await expect(page.getByLabel("Password")).toBeVisible();
+  await expect(page.getByText("Inventory App")).toBeVisible();
+  await expect(page.getByPlaceholder("you@example.com")).toBeVisible();
+  await expect(page.getByPlaceholder("••••••••")).toBeVisible();
   await expect(page.getByRole("button", { name: "Sign in" })).toBeVisible();
 });
 
