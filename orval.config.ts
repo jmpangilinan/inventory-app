@@ -3,9 +3,7 @@ import { defineConfig } from "orval";
 export default defineConfig({
   inventoryApi: {
     input: {
-      target: process.env.NEXT_PUBLIC_API_URL
-        ? `${process.env.NEXT_PUBLIC_API_URL}/api/documentation.json`
-        : "https://inventory-api-production-8530.up.railway.app/api/documentation.json",
+      target: "https://inventory-api-production-8530.up.railway.app/docs?api-docs.json",
     },
     output: {
       mode: "tags-split",
