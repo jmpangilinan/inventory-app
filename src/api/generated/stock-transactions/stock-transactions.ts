@@ -25,10 +25,10 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  76ae5d23055c902990a04b0ff6b58598201,
-  76ae5d23055c902990a04b0ff6b58598Body,
-  86cd38e4ff52906c67b60389af1f947d200,
-  86cd38e4ff52906c67b60389af1f947dParams,
+  StockTransactionsCreate201,
+  StockTransactionsCreateBody,
+  StockTransactionsList200,
+  StockTransactionsListParams,
   ValidationError
 } from '../../model';
 
@@ -40,14 +40,14 @@ import { axiosInstance } from '../../../lib/axios';
 /**
  * @summary List stock transactions for a product
  */
-export const 86cd38e4ff52906c67b60389af1f947d = (
+export const stockTransactionsList = (
     product: number,
-    params?: 86cd38e4ff52906c67b60389af1f947dParams,
+    params?: StockTransactionsListParams,
  signal?: AbortSignal
 ) => {
 
 
-      return axiosInstance<86cd38e4ff52906c67b60389af1f947d200>(
+      return axiosInstance<StockTransactionsList200>(
       {url: `/products/${product}/transactions`, method: 'GET',
         params, signal
     },
@@ -57,75 +57,75 @@ export const 86cd38e4ff52906c67b60389af1f947d = (
 
 
 
-export const get86cd38e4ff52906c67b60389af1f947dQueryKey = (product: number,
-    params?: 86cd38e4ff52906c67b60389af1f947dParams,) => {
+export const getStockTransactionsListQueryKey = (product: number,
+    params?: StockTransactionsListParams,) => {
     return [
     `/products/${product}/transactions`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const get86cd38e4ff52906c67b60389af1f947dQueryOptions = <TData = Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>, TError = void>(product: number,
-    params?: 86cd38e4ff52906c67b60389af1f947dParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>, TError, TData>>, }
+export const getStockTransactionsListQueryOptions = <TData = Awaited<ReturnType<typeof stockTransactionsList>>, TError = void>(product: number,
+    params?: StockTransactionsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof stockTransactionsList>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? get86cd38e4ff52906c67b60389af1f947dQueryKey(product,params);
+  const queryKey =  queryOptions?.queryKey ?? getStockTransactionsListQueryKey(product,params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>> = ({ signal }) => 86cd38e4ff52906c67b60389af1f947d(product,params, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof stockTransactionsList>>> = ({ signal }) => stockTransactionsList(product,params, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: !!(product), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: !!(product), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof stockTransactionsList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type 86cd38e4ff52906c67b60389af1f947dQueryResult = NonNullable<Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>>
-export type 86cd38e4ff52906c67b60389af1f947dQueryError = void
+export type StockTransactionsListQueryResult = NonNullable<Awaited<ReturnType<typeof stockTransactionsList>>>
+export type StockTransactionsListQueryError = void
 
 
-export function use86cd38e4ff52906c67b60389af1f947d<TData = Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>, TError = void>(
+export function useStockTransactionsList<TData = Awaited<ReturnType<typeof stockTransactionsList>>, TError = void>(
  product: number,
-    params: undefined |  86cd38e4ff52906c67b60389af1f947dParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>, TError, TData>> & Pick<
+    params: undefined |  StockTransactionsListParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof stockTransactionsList>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>,
+          Awaited<ReturnType<typeof stockTransactionsList>>,
           TError,
-          Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>
+          Awaited<ReturnType<typeof stockTransactionsList>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function use86cd38e4ff52906c67b60389af1f947d<TData = Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>, TError = void>(
+export function useStockTransactionsList<TData = Awaited<ReturnType<typeof stockTransactionsList>>, TError = void>(
  product: number,
-    params?: 86cd38e4ff52906c67b60389af1f947dParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>, TError, TData>> & Pick<
+    params?: StockTransactionsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof stockTransactionsList>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>,
+          Awaited<ReturnType<typeof stockTransactionsList>>,
           TError,
-          Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>
+          Awaited<ReturnType<typeof stockTransactionsList>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function use86cd38e4ff52906c67b60389af1f947d<TData = Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>, TError = void>(
+export function useStockTransactionsList<TData = Awaited<ReturnType<typeof stockTransactionsList>>, TError = void>(
  product: number,
-    params?: 86cd38e4ff52906c67b60389af1f947dParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>, TError, TData>>, }
+    params?: StockTransactionsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof stockTransactionsList>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary List stock transactions for a product
  */
 
-export function use86cd38e4ff52906c67b60389af1f947d<TData = Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>, TError = void>(
+export function useStockTransactionsList<TData = Awaited<ReturnType<typeof stockTransactionsList>>, TError = void>(
  product: number,
-    params?: 86cd38e4ff52906c67b60389af1f947dParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 86cd38e4ff52906c67b60389af1f947d>>, TError, TData>>, }
+    params?: StockTransactionsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof stockTransactionsList>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = get86cd38e4ff52906c67b60389af1f947dQueryOptions(product,params,options)
+  const queryOptions = getStockTransactionsListQueryOptions(product,params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -139,27 +139,27 @@ export function use86cd38e4ff52906c67b60389af1f947d<TData = Awaited<ReturnType<t
  * Supports stock-in (purchase/return), stock-out (sale/damage/expired), and adjustments (correction/initial_stock). Insufficient stock on stock-out returns 422.
  * @summary Record a stock movement
  */
-export const 76ae5d23055c902990a04b0ff6b58598 = (
-    N76ae5d23055c902990a04b0ff6b58598Body: 76ae5d23055c902990a04b0ff6b58598Body,
+export const stockTransactionsCreate = (
+    stockTransactionsCreateBody: StockTransactionsCreateBody,
  signal?: AbortSignal
 ) => {
 
 
-      return axiosInstance<76ae5d23055c902990a04b0ff6b58598201>(
+      return axiosInstance<StockTransactionsCreate201>(
       {url: `/stock-transactions`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: N76ae5d23055c902990a04b0ff6b58598Body, signal
+      data: stockTransactionsCreateBody, signal
     },
       );
     }
 
 
 
-export const get76ae5d23055c902990a04b0ff6b58598MutationOptions = <TError = void | ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 76ae5d23055c902990a04b0ff6b58598>>, TError,{data: 76ae5d23055c902990a04b0ff6b58598Body}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof 76ae5d23055c902990a04b0ff6b58598>>, TError,{data: 76ae5d23055c902990a04b0ff6b58598Body}, TContext> => {
+export const getStockTransactionsCreateMutationOptions = <TError = void | ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof stockTransactionsCreate>>, TError,{data: StockTransactionsCreateBody}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof stockTransactionsCreate>>, TError,{data: StockTransactionsCreateBody}, TContext> => {
 
-const mutationKey = ['76ae5d23055c902990a04b0ff6b58598'];
+const mutationKey = ['stockTransactionsCreate'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -169,10 +169,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof 76ae5d23055c902990a04b0ff6b58598>>, {data: 76ae5d23055c902990a04b0ff6b58598Body}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof stockTransactionsCreate>>, {data: StockTransactionsCreateBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  76ae5d23055c902990a04b0ff6b58598(data,)
+          return  stockTransactionsCreate(data,)
         }
 
 
@@ -182,20 +182,20 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type 76ae5d23055c902990a04b0ff6b58598MutationResult = NonNullable<Awaited<ReturnType<typeof 76ae5d23055c902990a04b0ff6b58598>>>
-    export type 76ae5d23055c902990a04b0ff6b58598MutationBody = 76ae5d23055c902990a04b0ff6b58598Body
-    export type 76ae5d23055c902990a04b0ff6b58598MutationError = void | ValidationError
+    export type StockTransactionsCreateMutationResult = NonNullable<Awaited<ReturnType<typeof stockTransactionsCreate>>>
+    export type StockTransactionsCreateMutationBody = StockTransactionsCreateBody
+    export type StockTransactionsCreateMutationError = void | ValidationError
 
     /**
  * @summary Record a stock movement
  */
-export const use76ae5d23055c902990a04b0ff6b58598 = <TError = void | ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 76ae5d23055c902990a04b0ff6b58598>>, TError,{data: 76ae5d23055c902990a04b0ff6b58598Body}, TContext>, }
+export const useStockTransactionsCreate = <TError = void | ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof stockTransactionsCreate>>, TError,{data: StockTransactionsCreateBody}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof 76ae5d23055c902990a04b0ff6b58598>>,
+        Awaited<ReturnType<typeof stockTransactionsCreate>>,
         TError,
-        {data: 76ae5d23055c902990a04b0ff6b58598Body},
+        {data: StockTransactionsCreateBody},
         TContext
       > => {
-      return useMutation(get76ae5d23055c902990a04b0ff6b58598MutationOptions(options), queryClient);
+      return useMutation(getStockTransactionsCreateMutationOptions(options), queryClient);
     }
