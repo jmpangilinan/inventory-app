@@ -16,8 +16,8 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  Aa9becd18deeb9772b41e7a04c6a2700201,
-  Aa9becd18deeb9772b41e7a04c6a2700Body,
+  DeviceWebhook201,
+  DeviceWebhookBody,
   ValidationError
 } from '../../model';
 
@@ -30,27 +30,27 @@ import { axiosInstance } from '../../../lib/axios';
  * No Bearer token required. The request must carry an HMAC-SHA256 signature in the `X-Device-Signature: sha256=<hmac>` header, computed over the raw JSON body using the shared `DEVICE_WEBHOOK_SECRET`. The transaction is recorded with `reason=device_scanned` under a system user.
  * @summary Receive a signed payload from a hardware device
  */
-export const aa9becd18deeb9772b41e7a04c6a2700 = (
-    aa9becd18deeb9772b41e7a04c6a2700Body: Aa9becd18deeb9772b41e7a04c6a2700Body,
+export const deviceWebhook = (
+    deviceWebhookBody: DeviceWebhookBody,
  signal?: AbortSignal
 ) => {
 
 
-      return axiosInstance<Aa9becd18deeb9772b41e7a04c6a2700201>(
+      return axiosInstance<DeviceWebhook201>(
       {url: `/device/webhook`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: aa9becd18deeb9772b41e7a04c6a2700Body, signal
+      data: deviceWebhookBody, signal
     },
       );
     }
 
 
 
-export const getAa9becd18deeb9772b41e7a04c6a2700MutationOptions = <TError = void | ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof aa9becd18deeb9772b41e7a04c6a2700>>, TError,{data: Aa9becd18deeb9772b41e7a04c6a2700Body}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof aa9becd18deeb9772b41e7a04c6a2700>>, TError,{data: Aa9becd18deeb9772b41e7a04c6a2700Body}, TContext> => {
+export const getDeviceWebhookMutationOptions = <TError = void | ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deviceWebhook>>, TError,{data: DeviceWebhookBody}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof deviceWebhook>>, TError,{data: DeviceWebhookBody}, TContext> => {
 
-const mutationKey = ['aa9becd18deeb9772b41e7a04c6a2700'];
+const mutationKey = ['deviceWebhook'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -60,10 +60,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof aa9becd18deeb9772b41e7a04c6a2700>>, {data: Aa9becd18deeb9772b41e7a04c6a2700Body}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deviceWebhook>>, {data: DeviceWebhookBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  aa9becd18deeb9772b41e7a04c6a2700(data,)
+          return  deviceWebhook(data,)
         }
 
 
@@ -73,20 +73,20 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type Aa9becd18deeb9772b41e7a04c6a2700MutationResult = NonNullable<Awaited<ReturnType<typeof aa9becd18deeb9772b41e7a04c6a2700>>>
-    export type Aa9becd18deeb9772b41e7a04c6a2700MutationBody = Aa9becd18deeb9772b41e7a04c6a2700Body
-    export type Aa9becd18deeb9772b41e7a04c6a2700MutationError = void | ValidationError
+    export type DeviceWebhookMutationResult = NonNullable<Awaited<ReturnType<typeof deviceWebhook>>>
+    export type DeviceWebhookMutationBody = DeviceWebhookBody
+    export type DeviceWebhookMutationError = void | ValidationError
 
     /**
  * @summary Receive a signed payload from a hardware device
  */
-export const useAa9becd18deeb9772b41e7a04c6a2700 = <TError = void | ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof aa9becd18deeb9772b41e7a04c6a2700>>, TError,{data: Aa9becd18deeb9772b41e7a04c6a2700Body}, TContext>, }
+export const useDeviceWebhook = <TError = void | ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deviceWebhook>>, TError,{data: DeviceWebhookBody}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof aa9becd18deeb9772b41e7a04c6a2700>>,
+        Awaited<ReturnType<typeof deviceWebhook>>,
         TError,
-        {data: Aa9becd18deeb9772b41e7a04c6a2700Body},
+        {data: DeviceWebhookBody},
         TContext
       > => {
-      return useMutation(getAa9becd18deeb9772b41e7a04c6a2700MutationOptions(options), queryClient);
+      return useMutation(getDeviceWebhookMutationOptions(options), queryClient);
     }

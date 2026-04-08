@@ -25,11 +25,11 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  08136088c4862c313b35d6518bab8d3a201,
-  08136088c4862c313b35d6518bab8d3aBody,
-  7edae2cdbaafc10dff8c9c4198b320a2200,
-  99d66635c4992aeaa6aa44ff653d0563200,
-  99d66635c4992aeaa6aa44ff653d0563Body,
+  AuthLogin200,
+  AuthLoginBody,
+  AuthMe200,
+  AuthRegister201,
+  AuthRegisterBody,
   MessageResponse,
   ValidationError
 } from '../../model';
@@ -42,27 +42,27 @@ import { axiosInstance } from '../../../lib/axios';
 /**
  * @summary Register a new user
  */
-export const 08136088c4862c313b35d6518bab8d3a = (
-    N08136088c4862c313b35d6518bab8d3aBody: 08136088c4862c313b35d6518bab8d3aBody,
+export const authRegister = (
+    authRegisterBody: AuthRegisterBody,
  signal?: AbortSignal
 ) => {
 
 
-      return axiosInstance<08136088c4862c313b35d6518bab8d3a201>(
+      return axiosInstance<AuthRegister201>(
       {url: `/auth/register`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: N08136088c4862c313b35d6518bab8d3aBody, signal
+      data: authRegisterBody, signal
     },
       );
     }
 
 
 
-export const get08136088c4862c313b35d6518bab8d3aMutationOptions = <TError = ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 08136088c4862c313b35d6518bab8d3a>>, TError,{data: 08136088c4862c313b35d6518bab8d3aBody}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof 08136088c4862c313b35d6518bab8d3a>>, TError,{data: 08136088c4862c313b35d6518bab8d3aBody}, TContext> => {
+export const getAuthRegisterMutationOptions = <TError = ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authRegister>>, TError,{data: AuthRegisterBody}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof authRegister>>, TError,{data: AuthRegisterBody}, TContext> => {
 
-const mutationKey = ['08136088c4862c313b35d6518bab8d3a'];
+const mutationKey = ['authRegister'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -72,10 +72,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof 08136088c4862c313b35d6518bab8d3a>>, {data: 08136088c4862c313b35d6518bab8d3aBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authRegister>>, {data: AuthRegisterBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  08136088c4862c313b35d6518bab8d3a(data,)
+          return  authRegister(data,)
         }
 
 
@@ -85,47 +85,47 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type 08136088c4862c313b35d6518bab8d3aMutationResult = NonNullable<Awaited<ReturnType<typeof 08136088c4862c313b35d6518bab8d3a>>>
-    export type 08136088c4862c313b35d6518bab8d3aMutationBody = 08136088c4862c313b35d6518bab8d3aBody
-    export type 08136088c4862c313b35d6518bab8d3aMutationError = ValidationError
+    export type AuthRegisterMutationResult = NonNullable<Awaited<ReturnType<typeof authRegister>>>
+    export type AuthRegisterMutationBody = AuthRegisterBody
+    export type AuthRegisterMutationError = ValidationError
 
     /**
  * @summary Register a new user
  */
-export const use08136088c4862c313b35d6518bab8d3a = <TError = ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 08136088c4862c313b35d6518bab8d3a>>, TError,{data: 08136088c4862c313b35d6518bab8d3aBody}, TContext>, }
+export const useAuthRegister = <TError = ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authRegister>>, TError,{data: AuthRegisterBody}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof 08136088c4862c313b35d6518bab8d3a>>,
+        Awaited<ReturnType<typeof authRegister>>,
         TError,
-        {data: 08136088c4862c313b35d6518bab8d3aBody},
+        {data: AuthRegisterBody},
         TContext
       > => {
-      return useMutation(get08136088c4862c313b35d6518bab8d3aMutationOptions(options), queryClient);
+      return useMutation(getAuthRegisterMutationOptions(options), queryClient);
     }
     /**
  * @summary Log in and receive a Bearer token
  */
-export const 99d66635c4992aeaa6aa44ff653d0563 = (
-    N99d66635c4992aeaa6aa44ff653d0563Body: 99d66635c4992aeaa6aa44ff653d0563Body,
+export const authLogin = (
+    authLoginBody: AuthLoginBody,
  signal?: AbortSignal
 ) => {
 
 
-      return axiosInstance<99d66635c4992aeaa6aa44ff653d0563200>(
+      return axiosInstance<AuthLogin200>(
       {url: `/auth/login`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: N99d66635c4992aeaa6aa44ff653d0563Body, signal
+      data: authLoginBody, signal
     },
       );
     }
 
 
 
-export const get99d66635c4992aeaa6aa44ff653d0563MutationOptions = <TError = ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 99d66635c4992aeaa6aa44ff653d0563>>, TError,{data: 99d66635c4992aeaa6aa44ff653d0563Body}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof 99d66635c4992aeaa6aa44ff653d0563>>, TError,{data: 99d66635c4992aeaa6aa44ff653d0563Body}, TContext> => {
+export const getAuthLoginMutationOptions = <TError = ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authLogin>>, TError,{data: AuthLoginBody}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof authLogin>>, TError,{data: AuthLoginBody}, TContext> => {
 
-const mutationKey = ['99d66635c4992aeaa6aa44ff653d0563'];
+const mutationKey = ['authLogin'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -135,10 +135,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof 99d66635c4992aeaa6aa44ff653d0563>>, {data: 99d66635c4992aeaa6aa44ff653d0563Body}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authLogin>>, {data: AuthLoginBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  99d66635c4992aeaa6aa44ff653d0563(data,)
+          return  authLogin(data,)
         }
 
 
@@ -148,27 +148,27 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type 99d66635c4992aeaa6aa44ff653d0563MutationResult = NonNullable<Awaited<ReturnType<typeof 99d66635c4992aeaa6aa44ff653d0563>>>
-    export type 99d66635c4992aeaa6aa44ff653d0563MutationBody = 99d66635c4992aeaa6aa44ff653d0563Body
-    export type 99d66635c4992aeaa6aa44ff653d0563MutationError = ValidationError
+    export type AuthLoginMutationResult = NonNullable<Awaited<ReturnType<typeof authLogin>>>
+    export type AuthLoginMutationBody = AuthLoginBody
+    export type AuthLoginMutationError = ValidationError
 
     /**
  * @summary Log in and receive a Bearer token
  */
-export const use99d66635c4992aeaa6aa44ff653d0563 = <TError = ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 99d66635c4992aeaa6aa44ff653d0563>>, TError,{data: 99d66635c4992aeaa6aa44ff653d0563Body}, TContext>, }
+export const useAuthLogin = <TError = ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authLogin>>, TError,{data: AuthLoginBody}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof 99d66635c4992aeaa6aa44ff653d0563>>,
+        Awaited<ReturnType<typeof authLogin>>,
         TError,
-        {data: 99d66635c4992aeaa6aa44ff653d0563Body},
+        {data: AuthLoginBody},
         TContext
       > => {
-      return useMutation(get99d66635c4992aeaa6aa44ff653d0563MutationOptions(options), queryClient);
+      return useMutation(getAuthLoginMutationOptions(options), queryClient);
     }
     /**
  * @summary Revoke the current Bearer token
  */
-export const 6abf3b64a4bc7838d56346f05a5153af = (
+export const authLogout = (
 
  signal?: AbortSignal
 ) => {
@@ -182,11 +182,11 @@ export const 6abf3b64a4bc7838d56346f05a5153af = (
 
 
 
-export const get6abf3b64a4bc7838d56346f05a5153afMutationOptions = <TError = void,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 6abf3b64a4bc7838d56346f05a5153af>>, TError,void, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof 6abf3b64a4bc7838d56346f05a5153af>>, TError,void, TContext> => {
+export const getAuthLogoutMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authLogout>>, TError,void, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof authLogout>>, TError,void, TContext> => {
 
-const mutationKey = ['6abf3b64a4bc7838d56346f05a5153af'];
+const mutationKey = ['authLogout'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -196,10 +196,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof 6abf3b64a4bc7838d56346f05a5153af>>, void> = () => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authLogout>>, void> = () => {
 
 
-          return  6abf3b64a4bc7838d56346f05a5153af()
+          return  authLogout()
         }
 
 
@@ -209,33 +209,33 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type 6abf3b64a4bc7838d56346f05a5153afMutationResult = NonNullable<Awaited<ReturnType<typeof 6abf3b64a4bc7838d56346f05a5153af>>>
+    export type AuthLogoutMutationResult = NonNullable<Awaited<ReturnType<typeof authLogout>>>
 
-    export type 6abf3b64a4bc7838d56346f05a5153afMutationError = void
+    export type AuthLogoutMutationError = void
 
     /**
  * @summary Revoke the current Bearer token
  */
-export const use6abf3b64a4bc7838d56346f05a5153af = <TError = void,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 6abf3b64a4bc7838d56346f05a5153af>>, TError,void, TContext>, }
+export const useAuthLogout = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authLogout>>, TError,void, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof 6abf3b64a4bc7838d56346f05a5153af>>,
+        Awaited<ReturnType<typeof authLogout>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(get6abf3b64a4bc7838d56346f05a5153afMutationOptions(options), queryClient);
+      return useMutation(getAuthLogoutMutationOptions(options), queryClient);
     }
     /**
  * @summary Get the authenticated user
  */
-export const 7edae2cdbaafc10dff8c9c4198b320a2 = (
+export const authMe = (
 
  signal?: AbortSignal
 ) => {
 
 
-      return axiosInstance<7edae2cdbaafc10dff8c9c4198b320a2200>(
+      return axiosInstance<AuthMe200>(
       {url: `/auth/me`, method: 'GET', signal
     },
       );
@@ -244,69 +244,69 @@ export const 7edae2cdbaafc10dff8c9c4198b320a2 = (
 
 
 
-export const get7edae2cdbaafc10dff8c9c4198b320a2QueryKey = () => {
+export const getAuthMeQueryKey = () => {
     return [
     `/auth/me`
     ] as const;
     }
 
 
-export const get7edae2cdbaafc10dff8c9c4198b320a2QueryOptions = <TData = Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>, TError = void>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>, TError, TData>>, }
+export const getAuthMeQueryOptions = <TData = Awaited<ReturnType<typeof authMe>>, TError = void>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authMe>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? get7edae2cdbaafc10dff8c9c4198b320a2QueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getAuthMeQueryKey();
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>> = ({ signal }) => 7edae2cdbaafc10dff8c9c4198b320a2(signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof authMe>>> = ({ signal }) => authMe(signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof authMe>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type 7edae2cdbaafc10dff8c9c4198b320a2QueryResult = NonNullable<Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>>
-export type 7edae2cdbaafc10dff8c9c4198b320a2QueryError = void
+export type AuthMeQueryResult = NonNullable<Awaited<ReturnType<typeof authMe>>>
+export type AuthMeQueryError = void
 
 
-export function use7edae2cdbaafc10dff8c9c4198b320a2<TData = Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>, TError = void>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>, TError, TData>> & Pick<
+export function useAuthMe<TData = Awaited<ReturnType<typeof authMe>>, TError = void>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof authMe>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>,
+          Awaited<ReturnType<typeof authMe>>,
           TError,
-          Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>
+          Awaited<ReturnType<typeof authMe>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function use7edae2cdbaafc10dff8c9c4198b320a2<TData = Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>, TError = void>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>, TError, TData>> & Pick<
+export function useAuthMe<TData = Awaited<ReturnType<typeof authMe>>, TError = void>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authMe>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>,
+          Awaited<ReturnType<typeof authMe>>,
           TError,
-          Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>
+          Awaited<ReturnType<typeof authMe>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function use7edae2cdbaafc10dff8c9c4198b320a2<TData = Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>, TError = void>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>, TError, TData>>, }
+export function useAuthMe<TData = Awaited<ReturnType<typeof authMe>>, TError = void>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authMe>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get the authenticated user
  */
 
-export function use7edae2cdbaafc10dff8c9c4198b320a2<TData = Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>, TError = void>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 7edae2cdbaafc10dff8c9c4198b320a2>>, TError, TData>>, }
+export function useAuthMe<TData = Awaited<ReturnType<typeof authMe>>, TError = void>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authMe>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = get7edae2cdbaafc10dff8c9c4198b320a2QueryOptions(options)
+  const queryOptions = getAuthMeQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

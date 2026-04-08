@@ -25,15 +25,15 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  080f057905dc32d2f11065d606dc4cd6200,
-  080f057905dc32d2f11065d606dc4cd6Params,
-  2297c574112f91c607201ec1bc8bc186200,
-  2ce632b9d1c0c445557821d09add7ec2200,
-  2ce632b9d1c0c445557821d09add7ec2Body,
-  B5099368868dbe7900acd129345eb148200,
-  Eddf8c7847239ddc1040daadd814e21b201,
-  Eddf8c7847239ddc1040daadd814e21bBody,
   MessageResponse,
+  ProductsCreate201,
+  ProductsCreateBody,
+  ProductsList200,
+  ProductsListParams,
+  ProductsLowStock200,
+  ProductsShow200,
+  ProductsUpdate200,
+  ProductsUpdateBody,
   ValidationError
 } from '../../model';
 
@@ -45,13 +45,13 @@ import { axiosInstance } from '../../../lib/axios';
 /**
  * @summary List all products (paginated, filterable)
  */
-export const 080f057905dc32d2f11065d606dc4cd6 = (
-    params?: 080f057905dc32d2f11065d606dc4cd6Params,
+export const productsList = (
+    params?: ProductsListParams,
  signal?: AbortSignal
 ) => {
 
 
-      return axiosInstance<080f057905dc32d2f11065d606dc4cd6200>(
+      return axiosInstance<ProductsList200>(
       {url: `/products`, method: 'GET',
         params, signal
     },
@@ -61,69 +61,69 @@ export const 080f057905dc32d2f11065d606dc4cd6 = (
 
 
 
-export const get080f057905dc32d2f11065d606dc4cd6QueryKey = (params?: 080f057905dc32d2f11065d606dc4cd6Params,) => {
+export const getProductsListQueryKey = (params?: ProductsListParams,) => {
     return [
     `/products`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const get080f057905dc32d2f11065d606dc4cd6QueryOptions = <TData = Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>, TError = void | ValidationError>(params?: 080f057905dc32d2f11065d606dc4cd6Params, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>, TError, TData>>, }
+export const getProductsListQueryOptions = <TData = Awaited<ReturnType<typeof productsList>>, TError = void | ValidationError>(params?: ProductsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsList>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? get080f057905dc32d2f11065d606dc4cd6QueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getProductsListQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>> = ({ signal }) => 080f057905dc32d2f11065d606dc4cd6(params, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof productsList>>> = ({ signal }) => productsList(params, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof productsList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type 080f057905dc32d2f11065d606dc4cd6QueryResult = NonNullable<Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>>
-export type 080f057905dc32d2f11065d606dc4cd6QueryError = void | ValidationError
+export type ProductsListQueryResult = NonNullable<Awaited<ReturnType<typeof productsList>>>
+export type ProductsListQueryError = void | ValidationError
 
 
-export function use080f057905dc32d2f11065d606dc4cd6<TData = Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>, TError = void | ValidationError>(
- params: undefined |  080f057905dc32d2f11065d606dc4cd6Params, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>, TError, TData>> & Pick<
+export function useProductsList<TData = Awaited<ReturnType<typeof productsList>>, TError = void | ValidationError>(
+ params: undefined |  ProductsListParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsList>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>,
+          Awaited<ReturnType<typeof productsList>>,
           TError,
-          Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>
+          Awaited<ReturnType<typeof productsList>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function use080f057905dc32d2f11065d606dc4cd6<TData = Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>, TError = void | ValidationError>(
- params?: 080f057905dc32d2f11065d606dc4cd6Params, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>, TError, TData>> & Pick<
+export function useProductsList<TData = Awaited<ReturnType<typeof productsList>>, TError = void | ValidationError>(
+ params?: ProductsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsList>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>,
+          Awaited<ReturnType<typeof productsList>>,
           TError,
-          Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>
+          Awaited<ReturnType<typeof productsList>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function use080f057905dc32d2f11065d606dc4cd6<TData = Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>, TError = void | ValidationError>(
- params?: 080f057905dc32d2f11065d606dc4cd6Params, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>, TError, TData>>, }
+export function useProductsList<TData = Awaited<ReturnType<typeof productsList>>, TError = void | ValidationError>(
+ params?: ProductsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsList>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary List all products (paginated, filterable)
  */
 
-export function use080f057905dc32d2f11065d606dc4cd6<TData = Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>, TError = void | ValidationError>(
- params?: 080f057905dc32d2f11065d606dc4cd6Params, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 080f057905dc32d2f11065d606dc4cd6>>, TError, TData>>, }
+export function useProductsList<TData = Awaited<ReturnType<typeof productsList>>, TError = void | ValidationError>(
+ params?: ProductsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsList>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = get080f057905dc32d2f11065d606dc4cd6QueryOptions(params,options)
+  const queryOptions = getProductsListQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -136,27 +136,27 @@ export function use080f057905dc32d2f11065d606dc4cd6<TData = Awaited<ReturnType<t
 /**
  * @summary Create a product
  */
-export const eddf8c7847239ddc1040daadd814e21b = (
-    eddf8c7847239ddc1040daadd814e21bBody: Eddf8c7847239ddc1040daadd814e21bBody,
+export const productsCreate = (
+    productsCreateBody: ProductsCreateBody,
  signal?: AbortSignal
 ) => {
 
 
-      return axiosInstance<Eddf8c7847239ddc1040daadd814e21b201>(
+      return axiosInstance<ProductsCreate201>(
       {url: `/products`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: eddf8c7847239ddc1040daadd814e21bBody, signal
+      data: productsCreateBody, signal
     },
       );
     }
 
 
 
-export const getEddf8c7847239ddc1040daadd814e21bMutationOptions = <TError = void | ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof eddf8c7847239ddc1040daadd814e21b>>, TError,{data: Eddf8c7847239ddc1040daadd814e21bBody}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof eddf8c7847239ddc1040daadd814e21b>>, TError,{data: Eddf8c7847239ddc1040daadd814e21bBody}, TContext> => {
+export const getProductsCreateMutationOptions = <TError = void | ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof productsCreate>>, TError,{data: ProductsCreateBody}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof productsCreate>>, TError,{data: ProductsCreateBody}, TContext> => {
 
-const mutationKey = ['eddf8c7847239ddc1040daadd814e21b'];
+const mutationKey = ['productsCreate'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -166,10 +166,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof eddf8c7847239ddc1040daadd814e21b>>, {data: Eddf8c7847239ddc1040daadd814e21bBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof productsCreate>>, {data: ProductsCreateBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  eddf8c7847239ddc1040daadd814e21b(data,)
+          return  productsCreate(data,)
         }
 
 
@@ -179,33 +179,33 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type Eddf8c7847239ddc1040daadd814e21bMutationResult = NonNullable<Awaited<ReturnType<typeof eddf8c7847239ddc1040daadd814e21b>>>
-    export type Eddf8c7847239ddc1040daadd814e21bMutationBody = Eddf8c7847239ddc1040daadd814e21bBody
-    export type Eddf8c7847239ddc1040daadd814e21bMutationError = void | ValidationError
+    export type ProductsCreateMutationResult = NonNullable<Awaited<ReturnType<typeof productsCreate>>>
+    export type ProductsCreateMutationBody = ProductsCreateBody
+    export type ProductsCreateMutationError = void | ValidationError
 
     /**
  * @summary Create a product
  */
-export const useEddf8c7847239ddc1040daadd814e21b = <TError = void | ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof eddf8c7847239ddc1040daadd814e21b>>, TError,{data: Eddf8c7847239ddc1040daadd814e21bBody}, TContext>, }
+export const useProductsCreate = <TError = void | ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof productsCreate>>, TError,{data: ProductsCreateBody}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof eddf8c7847239ddc1040daadd814e21b>>,
+        Awaited<ReturnType<typeof productsCreate>>,
         TError,
-        {data: Eddf8c7847239ddc1040daadd814e21bBody},
+        {data: ProductsCreateBody},
         TContext
       > => {
-      return useMutation(getEddf8c7847239ddc1040daadd814e21bMutationOptions(options), queryClient);
+      return useMutation(getProductsCreateMutationOptions(options), queryClient);
     }
     /**
  * @summary Get a product
  */
-export const b5099368868dbe7900acd129345eb148 = (
+export const productsShow = (
     id: number,
  signal?: AbortSignal
 ) => {
 
 
-      return axiosInstance<B5099368868dbe7900acd129345eb148200>(
+      return axiosInstance<ProductsShow200>(
       {url: `/products/${id}`, method: 'GET', signal
     },
       );
@@ -214,69 +214,69 @@ export const b5099368868dbe7900acd129345eb148 = (
 
 
 
-export const getB5099368868dbe7900acd129345eb148QueryKey = (id: number,) => {
+export const getProductsShowQueryKey = (id: number,) => {
     return [
     `/products/${id}`
     ] as const;
     }
 
 
-export const getB5099368868dbe7900acd129345eb148QueryOptions = <TData = Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>, TError = void>(id: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>, TError, TData>>, }
+export const getProductsShowQueryOptions = <TData = Awaited<ReturnType<typeof productsShow>>, TError = void>(id: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsShow>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getB5099368868dbe7900acd129345eb148QueryKey(id);
+  const queryKey =  queryOptions?.queryKey ?? getProductsShowQueryKey(id);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>> = ({ signal }) => b5099368868dbe7900acd129345eb148(id, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof productsShow>>> = ({ signal }) => productsShow(id, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof productsShow>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type B5099368868dbe7900acd129345eb148QueryResult = NonNullable<Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>>
-export type B5099368868dbe7900acd129345eb148QueryError = void
+export type ProductsShowQueryResult = NonNullable<Awaited<ReturnType<typeof productsShow>>>
+export type ProductsShowQueryError = void
 
 
-export function useB5099368868dbe7900acd129345eb148<TData = Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>, TError = void>(
- id: number, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>, TError, TData>> & Pick<
+export function useProductsShow<TData = Awaited<ReturnType<typeof productsShow>>, TError = void>(
+ id: number, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsShow>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>,
+          Awaited<ReturnType<typeof productsShow>>,
           TError,
-          Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>
+          Awaited<ReturnType<typeof productsShow>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useB5099368868dbe7900acd129345eb148<TData = Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>, TError = void>(
- id: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>, TError, TData>> & Pick<
+export function useProductsShow<TData = Awaited<ReturnType<typeof productsShow>>, TError = void>(
+ id: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsShow>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>,
+          Awaited<ReturnType<typeof productsShow>>,
           TError,
-          Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>
+          Awaited<ReturnType<typeof productsShow>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useB5099368868dbe7900acd129345eb148<TData = Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>, TError = void>(
- id: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>, TError, TData>>, }
+export function useProductsShow<TData = Awaited<ReturnType<typeof productsShow>>, TError = void>(
+ id: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsShow>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get a product
  */
 
-export function useB5099368868dbe7900acd129345eb148<TData = Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>, TError = void>(
- id: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof b5099368868dbe7900acd129345eb148>>, TError, TData>>, }
+export function useProductsShow<TData = Awaited<ReturnType<typeof productsShow>>, TError = void>(
+ id: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsShow>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getB5099368868dbe7900acd129345eb148QueryOptions(id,options)
+  const queryOptions = getProductsShowQueryOptions(id,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -289,28 +289,28 @@ export function useB5099368868dbe7900acd129345eb148<TData = Awaited<ReturnType<t
 /**
  * @summary Update a product
  */
-export const 2ce632b9d1c0c445557821d09add7ec2 = (
+export const productsUpdate = (
     id: number,
-    N2ce632b9d1c0c445557821d09add7ec2Body: 2ce632b9d1c0c445557821d09add7ec2Body,
+    productsUpdateBody: ProductsUpdateBody,
  signal?: AbortSignal
 ) => {
 
 
-      return axiosInstance<2ce632b9d1c0c445557821d09add7ec2200>(
+      return axiosInstance<ProductsUpdate200>(
       {url: `/products/${id}`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
-      data: N2ce632b9d1c0c445557821d09add7ec2Body, signal
+      data: productsUpdateBody, signal
     },
       );
     }
 
 
 
-export const get2ce632b9d1c0c445557821d09add7ec2MutationOptions = <TError = void | ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 2ce632b9d1c0c445557821d09add7ec2>>, TError,{id: number;data: 2ce632b9d1c0c445557821d09add7ec2Body}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof 2ce632b9d1c0c445557821d09add7ec2>>, TError,{id: number;data: 2ce632b9d1c0c445557821d09add7ec2Body}, TContext> => {
+export const getProductsUpdateMutationOptions = <TError = void | ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof productsUpdate>>, TError,{id: number;data: ProductsUpdateBody}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof productsUpdate>>, TError,{id: number;data: ProductsUpdateBody}, TContext> => {
 
-const mutationKey = ['2ce632b9d1c0c445557821d09add7ec2'];
+const mutationKey = ['productsUpdate'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -320,10 +320,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof 2ce632b9d1c0c445557821d09add7ec2>>, {id: number;data: 2ce632b9d1c0c445557821d09add7ec2Body}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof productsUpdate>>, {id: number;data: ProductsUpdateBody}> = (props) => {
           const {id,data} = props ?? {};
 
-          return  2ce632b9d1c0c445557821d09add7ec2(id,data,)
+          return  productsUpdate(id,data,)
         }
 
 
@@ -333,27 +333,27 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type 2ce632b9d1c0c445557821d09add7ec2MutationResult = NonNullable<Awaited<ReturnType<typeof 2ce632b9d1c0c445557821d09add7ec2>>>
-    export type 2ce632b9d1c0c445557821d09add7ec2MutationBody = 2ce632b9d1c0c445557821d09add7ec2Body
-    export type 2ce632b9d1c0c445557821d09add7ec2MutationError = void | ValidationError
+    export type ProductsUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof productsUpdate>>>
+    export type ProductsUpdateMutationBody = ProductsUpdateBody
+    export type ProductsUpdateMutationError = void | ValidationError
 
     /**
  * @summary Update a product
  */
-export const use2ce632b9d1c0c445557821d09add7ec2 = <TError = void | ValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 2ce632b9d1c0c445557821d09add7ec2>>, TError,{id: number;data: 2ce632b9d1c0c445557821d09add7ec2Body}, TContext>, }
+export const useProductsUpdate = <TError = void | ValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof productsUpdate>>, TError,{id: number;data: ProductsUpdateBody}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof 2ce632b9d1c0c445557821d09add7ec2>>,
+        Awaited<ReturnType<typeof productsUpdate>>,
         TError,
-        {id: number;data: 2ce632b9d1c0c445557821d09add7ec2Body},
+        {id: number;data: ProductsUpdateBody},
         TContext
       > => {
-      return useMutation(get2ce632b9d1c0c445557821d09add7ec2MutationOptions(options), queryClient);
+      return useMutation(getProductsUpdateMutationOptions(options), queryClient);
     }
     /**
  * @summary Soft-delete a product
  */
-export const 76bb7dc4ab3fc3233d5b33ef58e95d7d = (
+export const productsDelete = (
     id: number,
  signal?: AbortSignal
 ) => {
@@ -367,11 +367,11 @@ export const 76bb7dc4ab3fc3233d5b33ef58e95d7d = (
 
 
 
-export const get76bb7dc4ab3fc3233d5b33ef58e95d7dMutationOptions = <TError = void,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 76bb7dc4ab3fc3233d5b33ef58e95d7d>>, TError,{id: number}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof 76bb7dc4ab3fc3233d5b33ef58e95d7d>>, TError,{id: number}, TContext> => {
+export const getProductsDeleteMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof productsDelete>>, TError,{id: number}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof productsDelete>>, TError,{id: number}, TContext> => {
 
-const mutationKey = ['76bb7dc4ab3fc3233d5b33ef58e95d7d'];
+const mutationKey = ['productsDelete'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -381,10 +381,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof 76bb7dc4ab3fc3233d5b33ef58e95d7d>>, {id: number}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof productsDelete>>, {id: number}> = (props) => {
           const {id} = props ?? {};
 
-          return  76bb7dc4ab3fc3233d5b33ef58e95d7d(id,)
+          return  productsDelete(id,)
         }
 
 
@@ -394,33 +394,33 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type 76bb7dc4ab3fc3233d5b33ef58e95d7dMutationResult = NonNullable<Awaited<ReturnType<typeof 76bb7dc4ab3fc3233d5b33ef58e95d7d>>>
+    export type ProductsDeleteMutationResult = NonNullable<Awaited<ReturnType<typeof productsDelete>>>
 
-    export type 76bb7dc4ab3fc3233d5b33ef58e95d7dMutationError = void
+    export type ProductsDeleteMutationError = void
 
     /**
  * @summary Soft-delete a product
  */
-export const use76bb7dc4ab3fc3233d5b33ef58e95d7d = <TError = void,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof 76bb7dc4ab3fc3233d5b33ef58e95d7d>>, TError,{id: number}, TContext>, }
+export const useProductsDelete = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof productsDelete>>, TError,{id: number}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof 76bb7dc4ab3fc3233d5b33ef58e95d7d>>,
+        Awaited<ReturnType<typeof productsDelete>>,
         TError,
         {id: number},
         TContext
       > => {
-      return useMutation(get76bb7dc4ab3fc3233d5b33ef58e95d7dMutationOptions(options), queryClient);
+      return useMutation(getProductsDeleteMutationOptions(options), queryClient);
     }
     /**
  * @summary List products at or below their low-stock threshold
  */
-export const 2297c574112f91c607201ec1bc8bc186 = (
+export const productsLowStock = (
 
  signal?: AbortSignal
 ) => {
 
 
-      return axiosInstance<2297c574112f91c607201ec1bc8bc186200>(
+      return axiosInstance<ProductsLowStock200>(
       {url: `/products/low-stock`, method: 'GET', signal
     },
       );
@@ -429,69 +429,69 @@ export const 2297c574112f91c607201ec1bc8bc186 = (
 
 
 
-export const get2297c574112f91c607201ec1bc8bc186QueryKey = () => {
+export const getProductsLowStockQueryKey = () => {
     return [
     `/products/low-stock`
     ] as const;
     }
 
 
-export const get2297c574112f91c607201ec1bc8bc186QueryOptions = <TData = Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>, TError = void>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>, TError, TData>>, }
+export const getProductsLowStockQueryOptions = <TData = Awaited<ReturnType<typeof productsLowStock>>, TError = void>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsLowStock>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? get2297c574112f91c607201ec1bc8bc186QueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getProductsLowStockQueryKey();
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>> = ({ signal }) => 2297c574112f91c607201ec1bc8bc186(signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof productsLowStock>>> = ({ signal }) => productsLowStock(signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof productsLowStock>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type 2297c574112f91c607201ec1bc8bc186QueryResult = NonNullable<Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>>
-export type 2297c574112f91c607201ec1bc8bc186QueryError = void
+export type ProductsLowStockQueryResult = NonNullable<Awaited<ReturnType<typeof productsLowStock>>>
+export type ProductsLowStockQueryError = void
 
 
-export function use2297c574112f91c607201ec1bc8bc186<TData = Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>, TError = void>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>, TError, TData>> & Pick<
+export function useProductsLowStock<TData = Awaited<ReturnType<typeof productsLowStock>>, TError = void>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsLowStock>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>,
+          Awaited<ReturnType<typeof productsLowStock>>,
           TError,
-          Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>
+          Awaited<ReturnType<typeof productsLowStock>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function use2297c574112f91c607201ec1bc8bc186<TData = Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>, TError = void>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>, TError, TData>> & Pick<
+export function useProductsLowStock<TData = Awaited<ReturnType<typeof productsLowStock>>, TError = void>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsLowStock>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>,
+          Awaited<ReturnType<typeof productsLowStock>>,
           TError,
-          Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>
+          Awaited<ReturnType<typeof productsLowStock>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function use2297c574112f91c607201ec1bc8bc186<TData = Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>, TError = void>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>, TError, TData>>, }
+export function useProductsLowStock<TData = Awaited<ReturnType<typeof productsLowStock>>, TError = void>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsLowStock>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary List products at or below their low-stock threshold
  */
 
-export function use2297c574112f91c607201ec1bc8bc186<TData = Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>, TError = void>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof 2297c574112f91c607201ec1bc8bc186>>, TError, TData>>, }
+export function useProductsLowStock<TData = Awaited<ReturnType<typeof productsLowStock>>, TError = void>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof productsLowStock>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = get2297c574112f91c607201ec1bc8bc186QueryOptions(options)
+  const queryOptions = getProductsLowStockQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
