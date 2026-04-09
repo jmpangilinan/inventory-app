@@ -50,7 +50,7 @@ export function ProductDetail({ id }: ProductDetailProps) {
   const { data: productData, isLoading: productLoading, refetch } = useProductsShow(id);
   const product = productData?.data;
 
-  const { data: txData } = useStockTransactionsList(id, { page: txPage });
+  const { data: txData, isLoading: txLoading } = useStockTransactionsList(id, { page: txPage });
   const transactions = txData?.data ?? [];
   const txMeta = txData?.meta;
   const txLastPage = (txMeta?.last_page as number) ?? 1;
@@ -155,33 +155,11 @@ export function ProductDetail({ id }: ProductDetailProps) {
           data={transactions}
           manualPagination
           pageCount={txLastPage}
+          page={txPage}
+          onPageChange={setTxPage}
+          totalCount={txMeta?.total as number | undefined}
+          isLoading={txLoading}
         />
-        {txLastPage > 1 && (
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
-            <span>
-              Showing {transactions.length}
-              {txMeta?.total ? ` of ${txMeta.total as number}` : ""} transactions
-            </span>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={txPage === 1}
-                onClick={() => setTxPage((p) => p - 1)}
-              >
-                Previous
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={txPage === txLastPage}
-                onClick={() => setTxPage((p) => p + 1)}
-              >
-                Next
-              </Button>
-            </div>
-          </div>
-        )}
       </div>
 
       <ProductForm

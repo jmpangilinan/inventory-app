@@ -28,7 +28,7 @@ export function ProductsTable() {
 
   const debouncedSearch = useDebounce(search, 400);
 
-  const { data, refetch } = useProductsList({
+  const { data, isLoading, refetch } = useProductsList({
     search: debouncedSearch || undefined,
     page,
     per_page: 15,
@@ -125,33 +125,11 @@ export function ProductsTable() {
         data={products}
         manualPagination
         pageCount={(meta?.last_page as number) ?? 1}
+        page={page}
+        onPageChange={setPage}
+        totalCount={meta?.total as number | undefined}
+        isLoading={isLoading}
       />
-
-      {meta && (meta.last_page as number) > 1 && (
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <span>
-            Showing {products.length} of {meta.total as number} products
-          </span>
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={page === 1}
-              onClick={() => setPage((p) => p - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={page === (meta.last_page as number)}
-              onClick={() => setPage((p) => p + 1)}
-            >
-              Next
-            </Button>
-          </div>
-        </div>
-      )}
 
       <ProductForm
         open={formOpen}

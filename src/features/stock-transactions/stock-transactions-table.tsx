@@ -29,7 +29,11 @@ export function StockTransactionsTable() {
   const { data: productsData } = useProductsList({ per_page: 100 });
   const products = productsData?.data ?? [];
 
-  const { data, refetch } = useStockTransactionsList(
+  const {
+    data,
+    isLoading: txLoading,
+    refetch,
+  } = useStockTransactionsList(
     selectedProductId ?? 0,
     { page },
     { query: { enabled: !!selectedProductId } },
@@ -66,7 +70,12 @@ export function StockTransactionsTable() {
           }}
         >
           <SelectTrigger className="max-w-xs">
-            <SelectValue placeholder="Select a product…" />
+            <SelectValue placeholder="Select a product…">
+              {(value: string | null) => {
+                if (!value) return null;
+                return products.find((p) => String(p.id) === value)?.name ?? null;
+              }}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {products.map((p) => (
@@ -84,40 +93,16 @@ export function StockTransactionsTable() {
       </div>
 
       {selectedProductId ? (
-        <>
-          <DataTable
-            columns={stockTransactionColumns}
-            data={transactions}
-            manualPagination
-            pageCount={(meta?.last_page as number) ?? 1}
-          />
-
-          {meta && (meta.last_page as number) > 1 && (
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <span>
-                Showing {transactions.length} of {meta.total as number} transactions
-              </span>
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={page === 1}
-                  onClick={() => setPage((p) => p - 1)}
-                >
-                  Previous
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={page === (meta.last_page as number)}
-                  onClick={() => setPage((p) => p + 1)}
-                >
-                  Next
-                </Button>
-              </div>
-            </div>
-          )}
-        </>
+        <DataTable
+          columns={stockTransactionColumns}
+          data={transactions}
+          manualPagination
+          pageCount={(meta?.last_page as number) ?? 1}
+          page={page}
+          onPageChange={setPage}
+          totalCount={meta?.total as number | undefined}
+          isLoading={txLoading}
+        />
       ) : (
         <p className="py-12 text-center text-sm text-muted-foreground">
           Select a product to view its stock transactions.

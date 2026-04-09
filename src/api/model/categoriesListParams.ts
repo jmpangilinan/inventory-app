@@ -6,10 +6,11 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type AuditLogsListParams = {
-subject_type?: string;
-subject_id?: number;
-causer_id?: number;
+export type CategoriesListParams = {
+/**
+ * Filter by active status
+ */
+is_active?: boolean;
 /**
  * Items per page (1–100)
  */

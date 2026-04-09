@@ -93,7 +93,13 @@ export function StockTransactionForm({
           onValueChange={(val) => setValue("product_id", Number(val))}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Select product" />
+            <SelectValue placeholder="Select product">
+              {(value: string | null) => {
+                if (!value || value === "0") return null;
+                const p = products.find((prod) => String(prod.id) === value);
+                return p ? `${p.name} (${p.sku})` : null;
+              }}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {products.map((p) => (
@@ -116,7 +122,9 @@ export function StockTransactionForm({
             onValueChange={(val) => setValue("type", val as StockTransactionFormValues["type"])}
           >
             <SelectTrigger>
-              <SelectValue />
+              <SelectValue>
+                {(value: string | null) => (value ? (typeLabels[value] ?? value) : null)}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {Object.values(StockTransactionsCreateBodyType).map((t) => (
@@ -135,7 +143,9 @@ export function StockTransactionForm({
             onValueChange={(val) => setValue("reason", val as StockTransactionFormValues["reason"])}
           >
             <SelectTrigger>
-              <SelectValue />
+              <SelectValue>
+                {(value: string | null) => (value ? (reasonLabels[value] ?? value) : null)}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {Object.values(StockTransactionsCreateBodyReason).map((r) => (
