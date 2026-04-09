@@ -12,7 +12,7 @@ export function AuditLogsTable() {
   const [page, setPage] = useState(1);
   const [subjectType, setSubjectType] = useState("");
 
-  const { data } = useAuditLogsList({
+  const { data, isLoading } = useAuditLogsList({
     subject_type: subjectType ? `App\\Models\\${subjectType}` : undefined,
     per_page: 20,
     page,
@@ -49,6 +49,7 @@ export function AuditLogsTable() {
         page={page}
         onPageChange={setPage}
         totalCount={meta?.total as number | undefined}
+        isLoading={isLoading}
       />
     </div>
   );

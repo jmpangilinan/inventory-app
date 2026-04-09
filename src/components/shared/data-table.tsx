@@ -11,6 +11,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -31,6 +32,8 @@ interface DataTableProps<TData extends RowData> {
   page?: number;
   onPageChange?: (page: number) => void;
   totalCount?: number;
+  isLoading?: boolean;
+  skeletonRows?: number;
   getTable?: (table: TanstackTable<TData>) => void;
 }
 
@@ -45,6 +48,8 @@ export function DataTable<TData extends RowData>({
   page,
   onPageChange,
   totalCount,
+  isLoading = false,
+  skeletonRows = 5,
 }: DataTableProps<TData>) {
   const table = useReactTable({
     data,
@@ -79,7 +84,19 @@ export function DataTable<TData extends RowData>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows.length ? (
+            {isLoading ? (
+              Array.from({ length: skeletonRows }, (_, i) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: skeleton rows are visual placeholders with no identity
+                <TableRow key={i}>
+                  {columns.map((_col, j) => (
+                    // biome-ignore lint/suspicious/noArrayIndexKey: skeleton cells are visual placeholders with no identity
+                    <TableCell key={j}>
+                      <Skeleton className="h-4 w-full" />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
@@ -114,7 +131,7 @@ export function DataTable<TData extends RowData>({
             <Button
               variant="outline"
               size="sm"
-              disabled={page === 1}
+              disabled={page === 1 || isLoading}
               onClick={() => onPageChange(page - 1)}
             >
               Previous
@@ -122,7 +139,7 @@ export function DataTable<TData extends RowData>({
             <Button
               variant="outline"
               size="sm"
-              disabled={page === lastPage}
+              disabled={page === lastPage || isLoading}
               onClick={() => onPageChange(page + 1)}
             >
               Next

@@ -50,7 +50,7 @@ export function ProductDetail({ id }: ProductDetailProps) {
   const { data: productData, isLoading: productLoading, refetch } = useProductsShow(id);
   const product = productData?.data;
 
-  const { data: txData } = useStockTransactionsList(id, { page: txPage });
+  const { data: txData, isLoading: txLoading } = useStockTransactionsList(id, { page: txPage });
   const transactions = txData?.data ?? [];
   const txMeta = txData?.meta;
   const txLastPage = (txMeta?.last_page as number) ?? 1;
@@ -158,6 +158,7 @@ export function ProductDetail({ id }: ProductDetailProps) {
           page={txPage}
           onPageChange={setTxPage}
           totalCount={txMeta?.total as number | undefined}
+          isLoading={txLoading}
         />
       </div>
 

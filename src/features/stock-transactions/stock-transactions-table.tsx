@@ -29,7 +29,11 @@ export function StockTransactionsTable() {
   const { data: productsData } = useProductsList({ per_page: 100 });
   const products = productsData?.data ?? [];
 
-  const { data, refetch } = useStockTransactionsList(
+  const {
+    data,
+    isLoading: txLoading,
+    refetch,
+  } = useStockTransactionsList(
     selectedProductId ?? 0,
     { page },
     { query: { enabled: !!selectedProductId } },
@@ -97,6 +101,7 @@ export function StockTransactionsTable() {
           page={page}
           onPageChange={setPage}
           totalCount={meta?.total as number | undefined}
+          isLoading={txLoading}
         />
       ) : (
         <p className="py-12 text-center text-sm text-muted-foreground">

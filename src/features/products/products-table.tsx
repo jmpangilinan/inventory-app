@@ -28,7 +28,7 @@ export function ProductsTable() {
 
   const debouncedSearch = useDebounce(search, 400);
 
-  const { data, refetch } = useProductsList({
+  const { data, isLoading, refetch } = useProductsList({
     search: debouncedSearch || undefined,
     page,
     per_page: 15,
@@ -128,6 +128,7 @@ export function ProductsTable() {
         page={page}
         onPageChange={setPage}
         totalCount={meta?.total as number | undefined}
+        isLoading={isLoading}
       />
 
       <ProductForm

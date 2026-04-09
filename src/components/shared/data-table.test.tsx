@@ -176,4 +176,33 @@ describe("DataTable", () => {
     );
     expect(screen.getByText("Page 2 of 3")).toBeInTheDocument();
   });
+
+  it("renders skeleton rows instead of data when isLoading is true", () => {
+    render(<DataTable columns={columns} data={[]} isLoading skeletonRows={3} />);
+    expect(screen.queryByText("No results found.")).not.toBeInTheDocument();
+    const skeletons = document.querySelectorAll("[data-slot='skeleton']");
+    expect(skeletons).toHaveLength(3 * columns.length);
+  });
+
+  it("does not render skeleton when isLoading is false", () => {
+    render(<DataTable columns={columns} data={data} isLoading={false} />);
+    expect(document.querySelectorAll("[data-slot='skeleton']")).toHaveLength(0);
+    expect(screen.getByText("Alpha")).toBeInTheDocument();
+  });
+
+  it("disables pagination buttons while loading", () => {
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        manualPagination
+        pageCount={3}
+        page={2}
+        onPageChange={() => {}}
+        isLoading
+      />,
+    );
+    expect(screen.getByRole("button", { name: /previous/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /next/i })).toBeDisabled();
+  });
 });

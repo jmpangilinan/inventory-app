@@ -28,7 +28,7 @@ export function CategoriesTable() {
 
   const debouncedSearch = useDebounce(search, 400);
 
-  const { data, refetch } = useCategoriesList({ page, per_page: 15 });
+  const { data, isLoading, refetch } = useCategoriesList({ page, per_page: 15 });
   const categories = data?.data ?? [];
   const meta = data?.meta;
 
@@ -126,6 +126,7 @@ export function CategoriesTable() {
         page={page}
         onPageChange={setPage}
         totalCount={meta?.total as number | undefined}
+        isLoading={isLoading}
       />
 
       <CategoryForm
