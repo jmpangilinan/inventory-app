@@ -60,7 +60,7 @@ async function setAuthCookie(page: Page) {
       value: "test-token-123",
       domain: "localhost",
       path: "/",
-      maxAge: 60 * 60 * 24,
+      expires: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
     },
   ]);
 }
