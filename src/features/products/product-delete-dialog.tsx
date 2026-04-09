@@ -1,14 +1,5 @@
-"use client";
-
 import type { Product } from "@/api/model";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { DeleteDialog } from "@/components/shared/delete-dialog";
 
 interface ProductDeleteDialogProps {
   open: boolean;
@@ -26,25 +17,19 @@ export function ProductDeleteDialog({
   isPending,
 }: ProductDeleteDialogProps) {
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-sm">
-        <DialogHeader>
-          <DialogTitle>Delete product</DialogTitle>
-        </DialogHeader>
-        <p className="text-sm text-muted-foreground">
+    <DeleteDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Delete product"
+      description={
+        <>
           Are you sure you want to delete{" "}
           <span className="font-medium text-foreground">{product?.name}</span>? This action cannot
           be undone.
-        </p>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isPending}>
-            Cancel
-          </Button>
-          <Button variant="destructive" onClick={onConfirm} disabled={isPending}>
-            {isPending ? "Deleting…" : "Delete"}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </>
+      }
+      onConfirm={onConfirm}
+      isPending={isPending}
+    />
   );
 }
