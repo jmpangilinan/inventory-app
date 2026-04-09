@@ -3,7 +3,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Category } from "@/api/model";
 import { RowActions } from "@/components/shared/row-actions";
-import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/shared/status-badge";
 
 interface ColumnActions {
   onEdit: (category: Category) => void;
@@ -34,16 +34,7 @@ export function getCategoryColumns({ onEdit, onDelete }: ColumnActions): ColumnD
     {
       accessorKey: "is_active",
       header: "Status",
-      cell: ({ row }) =>
-        row.original.is_active ? (
-          <Badge variant="outline" className="border-green-600 text-green-600">
-            Active
-          </Badge>
-        ) : (
-          <Badge variant="outline" className="text-muted-foreground">
-            Inactive
-          </Badge>
-        ),
+      cell: ({ row }) => <StatusBadge active={row.original.is_active} />,
     },
     {
       id: "actions",

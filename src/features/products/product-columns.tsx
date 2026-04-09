@@ -3,6 +3,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Product } from "@/api/model";
 import { RowActions } from "@/components/shared/row-actions";
+import { StatusBadge } from "@/components/shared/status-badge";
 import { Badge } from "@/components/ui/badge";
 
 interface ColumnActions {
@@ -45,11 +46,10 @@ export function getProductColumns({ onEdit, onDelete }: ColumnActions): ColumnDe
       header: "Stock",
       cell: ({ row }) => {
         const qty = row.original.stock_quantity ?? 0;
-        const isLow = row.original.is_low_stock;
         return (
           <div className="flex items-center gap-2">
             <span>{qty}</span>
-            {isLow && (
+            {row.original.is_low_stock && (
               <Badge variant="destructive" className="text-xs">
                 Low
               </Badge>
@@ -61,16 +61,7 @@ export function getProductColumns({ onEdit, onDelete }: ColumnActions): ColumnDe
     {
       accessorKey: "is_active",
       header: "Status",
-      cell: ({ row }) =>
-        row.original.is_active ? (
-          <Badge variant="outline" className="border-green-600 text-green-600">
-            Active
-          </Badge>
-        ) : (
-          <Badge variant="outline" className="text-muted-foreground">
-            Inactive
-          </Badge>
-        ),
+      cell: ({ row }) => <StatusBadge active={row.original.is_active} />,
     },
     {
       id: "actions",
