@@ -123,33 +123,10 @@ export function CategoriesTable() {
         onGlobalFilterChange={setSearch}
         manualPagination
         pageCount={lastPage}
+        page={page}
+        onPageChange={setPage}
+        totalCount={meta?.total as number | undefined}
       />
-
-      {lastPage > 1 && (
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <span>
-            Showing {categories.length} of {meta?.total as number} categories
-          </span>
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={page === 1}
-              onClick={() => setPage((p) => p - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={page === lastPage}
-              onClick={() => setPage((p) => p + 1)}
-            >
-              Next
-            </Button>
-          </div>
-        </div>
-      )}
 
       <CategoryForm
         open={formOpen}

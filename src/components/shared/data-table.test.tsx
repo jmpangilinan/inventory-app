@@ -1,6 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import userEvent from "@testing-library/user-event";
+import { describe, expect, it, vi } from "vitest";
 import { DataTable } from "./data-table";
 
 interface Row {
@@ -47,5 +48,126 @@ describe("DataTable", () => {
     );
     expect(screen.getByText("Alpha")).toBeInTheDocument();
     expect(screen.queryByText("Beta")).not.toBeInTheDocument();
+  });
+
+  it("does not render pagination when pageCount is 1", () => {
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        manualPagination
+        pageCount={1}
+        page={1}
+        onPageChange={() => {}}
+      />,
+    );
+    expect(screen.queryByRole("button", { name: /previous/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /next/i })).not.toBeInTheDocument();
+  });
+
+  it("renders pagination buttons when pageCount > 1", () => {
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        manualPagination
+        pageCount={3}
+        page={2}
+        onPageChange={() => {}}
+      />,
+    );
+    expect(screen.getByRole("button", { name: /previous/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /next/i })).toBeInTheDocument();
+  });
+
+  it("disables Previous button on first page", () => {
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        manualPagination
+        pageCount={3}
+        page={1}
+        onPageChange={() => {}}
+      />,
+    );
+    expect(screen.getByRole("button", { name: /previous/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /next/i })).not.toBeDisabled();
+  });
+
+  it("disables Next button on last page", () => {
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        manualPagination
+        pageCount={3}
+        page={3}
+        onPageChange={() => {}}
+      />,
+    );
+    expect(screen.getByRole("button", { name: /previous/i })).not.toBeDisabled();
+    expect(screen.getByRole("button", { name: /next/i })).toBeDisabled();
+  });
+
+  it("calls onPageChange with decremented page on Previous click", async () => {
+    const onPageChange = vi.fn();
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        manualPagination
+        pageCount={3}
+        page={2}
+        onPageChange={onPageChange}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: /previous/i }));
+    expect(onPageChange).toHaveBeenCalledWith(1);
+  });
+
+  it("calls onPageChange with incremented page on Next click", async () => {
+    const onPageChange = vi.fn();
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        manualPagination
+        pageCount={3}
+        page={2}
+        onPageChange={onPageChange}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: /next/i }));
+    expect(onPageChange).toHaveBeenCalledWith(3);
+  });
+
+  it("shows 'Showing X of Y' when totalCount is provided", () => {
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        manualPagination
+        pageCount={3}
+        page={1}
+        onPageChange={() => {}}
+        totalCount={45}
+      />,
+    );
+    expect(screen.getByText("Showing 2 of 45")).toBeInTheDocument();
+  });
+
+  it("shows 'Page X of Y' when totalCount is not provided", () => {
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        manualPagination
+        pageCount={3}
+        page={2}
+        onPageChange={() => {}}
+      />,
+    );
+    expect(screen.getByText("Page 2 of 3")).toBeInTheDocument();
   });
 });
