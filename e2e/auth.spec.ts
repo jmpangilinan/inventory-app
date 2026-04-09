@@ -104,7 +104,7 @@ test.describe("Login page", () => {
     await page.getByLabel("Email").fill("wrong@example.com");
     await page.getByLabel("Password").fill("wrongpassword");
     await page.getByRole("button", { name: "Sign in" }).click();
-    await expect(page.getByText("Invalid email or password.")).toBeVisible();
+    await expect(page.getByText("Invalid email or password.")).toBeVisible({ timeout: 10000 });
   });
 
   test("navigates to register page via Sign up link", async ({ page }) => {
@@ -131,7 +131,7 @@ test.describe("Register page", () => {
     await expect(page.getByText("Create your account")).toBeVisible();
     await expect(page.getByLabel("Name")).toBeVisible();
     await expect(page.getByLabel("Email")).toBeVisible();
-    await expect(page.getByLabel("Password")).toBeVisible();
+    await expect(page.getByLabel("Password", { exact: true })).toBeVisible();
     await expect(page.getByLabel("Confirm Password")).toBeVisible();
     await expect(page.getByRole("button", { name: "Create account" })).toBeVisible();
     await expect(page.getByRole("link", { name: "Sign in" })).toBeVisible();
@@ -146,7 +146,7 @@ test.describe("Register page", () => {
   test("shows error when passwords do not match", async ({ page }) => {
     await page.getByLabel("Name").fill("Juan dela Cruz");
     await page.getByLabel("Email").fill("juan@example.com");
-    await page.getByLabel("Password").fill("password123");
+    await page.getByLabel("Password", { exact: true }).fill("password123");
     await page.getByLabel("Confirm Password").fill("different");
     await page.getByRole("button", { name: "Create account" }).click();
     await expect(page.getByText("Passwords do not match")).toBeVisible();
@@ -167,7 +167,7 @@ test.describe("Authenticated flow", () => {
   });
 
   test("dashboard renders after login", async ({ page }) => {
-    await expect(page.getByText("Dashboard")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
   });
 
   test("sidebar navigation links are visible", async ({ page }) => {
