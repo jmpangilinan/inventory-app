@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useAuditLogsList } from "@/api/generated/audit-logs/audit-logs";
 import { DataTable } from "@/components/shared/data-table";
 import { Button } from "@/components/ui/button";
-import type { AuditLogsResponse } from "@/types/audit-log";
 import { auditLogColumns } from "./audit-log-columns";
 
 const SUBJECT_TYPES = ["Product", "Category"];
@@ -13,14 +12,15 @@ export function AuditLogsTable() {
   const [page, setPage] = useState(1);
   const [subjectType, setSubjectType] = useState("");
 
-  const { data: rawData } = useAuditLogsList({
+  const { data } = useAuditLogsList({
     subject_type: subjectType ? `App\\Models\\${subjectType}` : undefined,
     per_page: 20,
   });
 
-  const data = rawData as unknown as AuditLogsResponse | undefined;
   const logs = data?.data ?? [];
   const meta = data?.meta;
+  const lastPage = (meta?.last_page as number) ?? 1;
+  const total = meta?.total as number | undefined;
 
   return (
     <div className="space-y-4">
@@ -41,17 +41,13 @@ export function AuditLogsTable() {
         ))}
       </div>
 
-      <DataTable
-        columns={auditLogColumns}
-        data={logs}
-        manualPagination
-        pageCount={meta?.last_page ?? 1}
-      />
+      <DataTable columns={auditLogColumns} data={logs} manualPagination pageCount={lastPage} />
 
-      {meta && meta.last_page > 1 && (
+      {lastPage > 1 && (
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>
-            Showing {logs.length} of {meta.total} entries
+            Showing {logs.length}
+            {total ? ` of ${total}` : ""} entries
           </span>
           <div className="flex gap-2">
             <Button
@@ -65,7 +61,7 @@ export function AuditLogsTable() {
             <Button
               variant="outline"
               size="sm"
-              disabled={page === meta.last_page}
+              disabled={page === lastPage}
               onClick={() => setPage((p) => p + 1)}
             >
               Next
