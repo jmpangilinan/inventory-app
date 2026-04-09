@@ -27,6 +27,7 @@ instance.interceptors.response.use(
       typeof window !== "undefined" &&
       !error.config?.url?.includes("/auth/")
     ) {
+      /* c8 ignore next -- browser navigation, covered by E2E */
       window.location.href = "/login";
     }
     return Promise.reject(error);
