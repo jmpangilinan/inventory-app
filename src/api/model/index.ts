@@ -6,6 +6,11 @@
  * OpenAPI spec version: 1.0.0
  */
 
+export * from './auditLog';
+export * from './auditLogProperties';
+export * from './auditLogsList200';
+export * from './auditLogsList200Links';
+export * from './auditLogsList200Meta';
 export * from './auditLogsListParams';
 export * from './authLogin200';
 export * from './authLoginBody';

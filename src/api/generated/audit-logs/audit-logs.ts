@@ -21,6 +21,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AuditLogsList200,
   AuditLogsListParams
 } from '../../model';
 
@@ -38,7 +39,7 @@ export const auditLogsList = (
 ) => {
 
 
-      return axiosInstance<void>(
+      return axiosInstance<AuditLogsList200>(
       {url: `/audit-logs`, method: 'GET',
         params, signal
     },
