@@ -14,8 +14,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import type { ProductFormValues } from "@/lib/validations/product";
-import { productDetailTransactionColumns } from "./product-detail-columns";
+import { stockTransactionColumns } from "../stock-transactions/stock-transaction-columns";
 import { ProductForm } from "./product-form";
+
+const detailTransactionColumns = stockTransactionColumns.filter(
+  (col) => !("accessorKey" in col && col.accessorKey === "product"),
+);
 
 function ProductInfoSkeleton() {
   return (
@@ -147,7 +151,7 @@ export function ProductDetail({ id }: ProductDetailProps) {
       <div className="space-y-3">
         <h2 className="text-lg font-semibold">Stock Transactions</h2>
         <DataTable
-          columns={productDetailTransactionColumns}
+          columns={detailTransactionColumns}
           data={transactions}
           manualPagination
           pageCount={txLastPage}
