@@ -1,31 +1,31 @@
-import type { Product } from "@/api/model";
+import type { Category } from "@/api/model";
 import { DeleteDialog } from "@/components/shared/delete-dialog";
 
-interface ProductDeleteDialogProps {
+interface CategoryDeleteDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  product: Product | null;
+  category: Category | null;
   onConfirm: () => void;
   isPending: boolean;
 }
 
-export function ProductDeleteDialog({
+export function CategoryDeleteDialog({
   open,
   onOpenChange,
-  product,
+  category,
   onConfirm,
   isPending,
-}: ProductDeleteDialogProps) {
+}: CategoryDeleteDialogProps) {
   return (
     <DeleteDialog
       open={open}
       onOpenChange={onOpenChange}
-      title="Delete product"
+      title="Delete category"
       description={
         <>
           Are you sure you want to delete{" "}
-          <span className="font-medium text-foreground">{product?.name}</span>? This action cannot
-          be undone.
+          <span className="font-medium text-foreground">{category?.name}</span>? Products in this
+          category will lose their category association.
         </>
       }
       onConfirm={onConfirm}

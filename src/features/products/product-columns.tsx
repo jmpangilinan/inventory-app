@@ -1,16 +1,10 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import type { Product } from "@/api/model";
+import { RowActions } from "@/components/shared/row-actions";
+import { StatusBadge } from "@/components/shared/status-badge";
 import { Badge } from "@/components/ui/badge";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 interface ColumnActions {
   onEdit: (product: Product) => void;
@@ -41,10 +35,9 @@ export function getProductColumns({ onEdit, onDelete }: ColumnActions): ColumnDe
       header: "Price",
       cell: ({ row }) => (
         <span>
-          {new Intl.NumberFormat("en-PH", {
-            style: "currency",
-            currency: "PHP",
-          }).format(row.original.price ?? 0)}
+          {new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP" }).format(
+            row.original.price ?? 0,
+          )}
         </span>
       ),
     },
@@ -53,11 +46,10 @@ export function getProductColumns({ onEdit, onDelete }: ColumnActions): ColumnDe
       header: "Stock",
       cell: ({ row }) => {
         const qty = row.original.stock_quantity ?? 0;
-        const isLow = row.original.is_low_stock;
         return (
           <div className="flex items-center gap-2">
             <span>{qty}</span>
-            {isLow && (
+            {row.original.is_low_stock && (
               <Badge variant="destructive" className="text-xs">
                 Low
               </Badge>
@@ -69,40 +61,12 @@ export function getProductColumns({ onEdit, onDelete }: ColumnActions): ColumnDe
     {
       accessorKey: "is_active",
       header: "Status",
-      cell: ({ row }) =>
-        row.original.is_active ? (
-          <Badge variant="outline" className="text-green-600 border-green-600">
-            Active
-          </Badge>
-        ) : (
-          <Badge variant="outline" className="text-muted-foreground">
-            Inactive
-          </Badge>
-        ),
+      cell: ({ row }) => <StatusBadge active={row.original.is_active} />,
     },
     {
       id: "actions",
       cell: ({ row }) => (
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex size-8 items-center justify-center rounded-md hover:bg-accent">
-            <MoreHorizontal className="size-4" />
-            <span className="sr-only">Open menu</span>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => onEdit(row.original)}>
-              <Pencil className="mr-2 size-4" />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => onDelete(row.original)}
-              className="text-destructive focus:text-destructive"
-            >
-              <Trash2 className="mr-2 size-4" />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <RowActions onEdit={() => onEdit(row.original)} onDelete={() => onDelete(row.original)} />
       ),
     },
   ];
