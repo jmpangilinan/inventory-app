@@ -24,6 +24,10 @@ export default defineConfig({
         "src/components/shared/providers.tsx",
         "src/components/shared/sidebar.tsx",
         "src/components/shared/theme-toggle.tsx",
+        "src/features/**/*-columns.tsx",
+        "src/features/**/*-form.tsx",
+        "src/features/**/*-dialog.tsx",
+        "src/features/**/*-table.tsx",
         "src/middleware.ts",
       ],
       thresholds: {
