@@ -30,6 +30,7 @@ export default defineConfig({
         "src/features/**/*-form.tsx",
         "src/features/**/*-dialog.tsx",
         "src/features/**/*-table.tsx",
+        "src/features/**/*-detail.tsx",
         "src/features/dashboard/**",
         "src/middleware.ts",
       ],

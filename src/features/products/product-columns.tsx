@@ -1,6 +1,7 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
 import type { Product } from "@/api/model";
 import { RowActions } from "@/components/shared/row-actions";
 import { StatusBadge } from "@/components/shared/status-badge";
@@ -23,7 +24,9 @@ export function getProductColumns({ onEdit, onDelete }: ColumnActions): ColumnDe
       header: "Name",
       cell: ({ row }) => (
         <div>
-          <p className="font-medium">{row.original.name}</p>
+          <Link href={`/products/${row.original.id}`} className="font-medium hover:underline">
+            {row.original.name}
+          </Link>
           {row.original.category && (
             <p className="text-xs text-muted-foreground">{row.original.category.name}</p>
           )}
