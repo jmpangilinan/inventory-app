@@ -6,13 +6,4 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type AuditLogsListParams = {
-subject_type?: string;
-subject_id?: number;
-causer_id?: number;
-/**
- * Items per page (1–100)
- */
-per_page?: number;
-page?: number;
-};
+export type CategoriesList200Links = { [key: string]: unknown };

@@ -5,8 +5,12 @@
  * Inventory & Stock Management REST API — Repository + Service pattern, domain events, HMAC device webhooks, audit trail.
  * OpenAPI spec version: 1.0.0
  */
+import type { CategoriesList200Links } from './categoriesList200Links';
+import type { CategoriesList200Meta } from './categoriesList200Meta';
 import type { Category } from './category';
 
 export type CategoriesList200 = {
   data?: Category[];
+  meta?: CategoriesList200Meta;
+  links?: CategoriesList200Links;
 };

@@ -28,6 +28,7 @@ import type {
   CategoriesCreate201,
   CategoriesCreateBody,
   CategoriesList200,
+  CategoriesListParams,
   CategoriesShow200,
   CategoriesUpdate200,
   CategoriesUpdateBody,
@@ -41,16 +42,17 @@ import { axiosInstance } from '../../../lib/axios';
 
 
 /**
- * @summary List all categories
+ * @summary List all categories (paginated, filterable)
  */
 export const categoriesList = (
-
+    params?: CategoriesListParams,
  signal?: AbortSignal
 ) => {
 
 
       return axiosInstance<CategoriesList200>(
-      {url: `/categories`, method: 'GET', signal
+      {url: `/categories`, method: 'GET',
+        params, signal
     },
       );
     }
@@ -58,23 +60,23 @@ export const categoriesList = (
 
 
 
-export const getCategoriesListQueryKey = () => {
+export const getCategoriesListQueryKey = (params?: CategoriesListParams,) => {
     return [
-    `/categories`
+    `/categories`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const getCategoriesListQueryOptions = <TData = Awaited<ReturnType<typeof categoriesList>>, TError = void>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesList>>, TError, TData>>, }
+export const getCategoriesListQueryOptions = <TData = Awaited<ReturnType<typeof categoriesList>>, TError = void | ValidationError>(params?: CategoriesListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesList>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getCategoriesListQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getCategoriesListQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof categoriesList>>> = ({ signal }) => categoriesList(signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof categoriesList>>> = ({ signal }) => categoriesList(params, signal);
 
 
 
@@ -84,11 +86,11 @@ const {query: queryOptions} = options ?? {};
 }
 
 export type CategoriesListQueryResult = NonNullable<Awaited<ReturnType<typeof categoriesList>>>
-export type CategoriesListQueryError = void
+export type CategoriesListQueryError = void | ValidationError
 
 
-export function useCategoriesList<TData = Awaited<ReturnType<typeof categoriesList>>, TError = void>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesList>>, TError, TData>> & Pick<
+export function useCategoriesList<TData = Awaited<ReturnType<typeof categoriesList>>, TError = void | ValidationError>(
+ params: undefined |  CategoriesListParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesList>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof categoriesList>>,
           TError,
@@ -97,8 +99,8 @@ export function useCategoriesList<TData = Awaited<ReturnType<typeof categoriesLi
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCategoriesList<TData = Awaited<ReturnType<typeof categoriesList>>, TError = void>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesList>>, TError, TData>> & Pick<
+export function useCategoriesList<TData = Awaited<ReturnType<typeof categoriesList>>, TError = void | ValidationError>(
+ params?: CategoriesListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesList>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof categoriesList>>,
           TError,
@@ -107,20 +109,20 @@ export function useCategoriesList<TData = Awaited<ReturnType<typeof categoriesLi
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCategoriesList<TData = Awaited<ReturnType<typeof categoriesList>>, TError = void>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesList>>, TError, TData>>, }
+export function useCategoriesList<TData = Awaited<ReturnType<typeof categoriesList>>, TError = void | ValidationError>(
+ params?: CategoriesListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesList>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
- * @summary List all categories
+ * @summary List all categories (paginated, filterable)
  */
 
-export function useCategoriesList<TData = Awaited<ReturnType<typeof categoriesList>>, TError = void>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesList>>, TError, TData>>, }
+export function useCategoriesList<TData = Awaited<ReturnType<typeof categoriesList>>, TError = void | ValidationError>(
+ params?: CategoriesListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesList>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getCategoriesListQueryOptions(options)
+  const queryOptions = getCategoriesListQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
