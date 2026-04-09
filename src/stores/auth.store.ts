@@ -17,19 +17,15 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       isAuthenticated: false,
       setAuth: (user, token) => {
-        if (typeof window !== "undefined") {
-          localStorage.setItem("auth_token", token);
-          // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API not yet widely supported
-          document.cookie = `auth_token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
-        }
+        localStorage.setItem("auth_token", token);
+        // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API not yet widely supported
+        document.cookie = `auth_token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
         set({ user, token, isAuthenticated: true });
       },
       clearAuth: () => {
-        if (typeof window !== "undefined") {
-          localStorage.removeItem("auth_token");
-          // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API not yet widely supported
-          document.cookie = "auth_token=; path=/; max-age=0";
-        }
+        localStorage.removeItem("auth_token");
+        // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API not yet widely supported
+        document.cookie = "auth_token=; path=/; max-age=0";
         set({ user: null, token: null, isAuthenticated: false });
       },
     }),
