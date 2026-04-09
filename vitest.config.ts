@@ -22,6 +22,8 @@ export default defineConfig({
         "src/app/**",
         "src/components/ui/**",
         "src/components/shared/providers.tsx",
+        "src/components/shared/sidebar.tsx",
+        "src/components/shared/theme-toggle.tsx",
         "src/middleware.ts",
       ],
       thresholds: {
