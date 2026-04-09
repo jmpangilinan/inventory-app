@@ -24,7 +24,6 @@ export default defineConfig({
         "src/components/shared/providers.tsx",
         "src/components/shared/sidebar.tsx",
         "src/components/shared/theme-toggle.tsx",
-        "src/components/shared/data-table.tsx",
         "src/components/shared/delete-dialog.tsx",
         "src/components/shared/row-actions.tsx",
         "src/features/**/*-columns.tsx",
