@@ -33,10 +33,12 @@ export default defineConfig({
           use: { ...devices["Desktop Safari"] },
         },
       ],
-  webServer: {
-    command: process.env.CI ? "bun start" : "bun dev",
-    url: "http://localhost:3000",
-    reuseExistingServer: !process.env.CI,
-    timeout: 120000,
-  },
+  webServer: process.env.PLAYWRIGHT_BASE_URL
+    ? undefined
+    : {
+        command: process.env.CI ? "bun start" : "bun dev",
+        url: "http://localhost:3000",
+        reuseExistingServer: !process.env.CI,
+        timeout: 120000,
+      },
 });
