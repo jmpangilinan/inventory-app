@@ -1,15 +1,15 @@
-import axios from "axios";
-import { env } from "@/env";
+import axios, { type AxiosRequestConfig } from "axios";
 
-export const axiosInstance = axios.create({
-  baseURL: env.NEXT_PUBLIC_API_URL,
+const instance = axios.create({
+  baseURL:
+    process.env.NEXT_PUBLIC_API_URL ?? "https://inventory-api-production-8530.up.railway.app",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
   },
 });
 
-axiosInstance.interceptors.request.use((config) => {
+instance.interceptors.request.use((config) => {
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("auth_token");
     if (token) {
@@ -19,7 +19,7 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-axiosInstance.interceptors.response.use(
+instance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401 && typeof window !== "undefined") {
@@ -29,4 +29,8 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export default axiosInstance;
+export const axiosInstance = <T>(config: AxiosRequestConfig): Promise<T> => {
+  return instance(config).then((response) => response.data);
+};
+
+export default instance;
