@@ -1,7 +1,73 @@
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
-const VALID_EMAIL = process.env.E2E_USER_EMAIL ?? "admin@example.com";
-const VALID_PASSWORD = process.env.E2E_USER_PASSWORD ?? "password";
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+async function mockLoginSuccess(page: Page) {
+  await page.route("**/auth/login", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        data: { id: 1, name: "Test User", email: "test@example.com", roles: ["admin"] },
+        token: "test-token-123",
+      }),
+    }),
+  );
+}
+
+async function mockLoginFailure(page: Page) {
+  await page.route("**/auth/login", (route) =>
+    route.fulfill({
+      status: 401,
+      contentType: "application/json",
+      body: JSON.stringify({ message: "Invalid credentials" }),
+    }),
+  );
+}
+
+async function mockDashboardApis(page: Page) {
+  const emptyPaginated = JSON.stringify({
+    data: [],
+    meta: { current_page: 1, last_page: 1, per_page: 15, total: 0 },
+    links: {},
+  });
+
+  await page.route("**/products/low-stock", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ data: [] }),
+    }),
+  );
+  await page.route("**/products**", (route) =>
+    route.fulfill({ status: 200, contentType: "application/json", body: emptyPaginated }),
+  );
+  await page.route("**/categories**", (route) =>
+    route.fulfill({ status: 200, contentType: "application/json", body: emptyPaginated }),
+  );
+  await page.route("**/audit-logs**", (route) =>
+    route.fulfill({ status: 200, contentType: "application/json", body: emptyPaginated }),
+  );
+}
+
+/** Set auth cookie so middleware treats the browser as authenticated. */
+async function setAuthCookie(page: Page) {
+  await page.context().addCookies([
+    {
+      name: "auth_token",
+      value: "test-token-123",
+      domain: "localhost",
+      path: "/",
+      maxAge: 60 * 60 * 24,
+    },
+  ]);
+}
+
+// ---------------------------------------------------------------------------
+// Tests
+// ---------------------------------------------------------------------------
 
 test.describe("Unauthenticated redirects", () => {
   test("redirects / to /login", async ({ page }) => {
@@ -33,7 +99,8 @@ test.describe("Login page", () => {
     await expect(page.getByText("Invalid email address")).toBeVisible();
   });
 
-  test("shows error on wrong credentials", async ({ page }) => {
+  test("shows error toast on wrong credentials", async ({ page }) => {
+    await mockLoginFailure(page);
     await page.getByLabel("Email").fill("wrong@example.com");
     await page.getByLabel("Password").fill("wrongpassword");
     await page.getByRole("button", { name: "Sign in" }).click();
@@ -46,8 +113,10 @@ test.describe("Login page", () => {
   });
 
   test("successful login redirects to dashboard", async ({ page }) => {
-    await page.getByLabel("Email").fill(VALID_EMAIL);
-    await page.getByLabel("Password").fill(VALID_PASSWORD);
+    await mockLoginSuccess(page);
+    await mockDashboardApis(page);
+    await page.getByLabel("Email").fill("test@example.com");
+    await page.getByLabel("Password").fill("password123");
     await page.getByRole("button", { name: "Sign in" }).click();
     await expect(page).toHaveURL(/\/dashboard/);
   });
@@ -91,10 +160,9 @@ test.describe("Register page", () => {
 
 test.describe("Authenticated flow", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/login");
-    await page.getByLabel("Email").fill(VALID_EMAIL);
-    await page.getByLabel("Password").fill(VALID_PASSWORD);
-    await page.getByRole("button", { name: "Sign in" }).click();
+    await setAuthCookie(page);
+    await mockDashboardApis(page);
+    await page.goto("/dashboard");
     await expect(page).toHaveURL(/\/dashboard/);
   });
 
