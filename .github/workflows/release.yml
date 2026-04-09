@@ -28,20 +28,19 @@ jobs:
         run: bun test:coverage
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-          AUTH_SECRET: test-secret
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
 
       - name: Install Playwright browsers
         run: bunx playwright install --with-deps chromium
 
-      - name: Wait for Vercel Preview
-        uses: patrickedqvist/wait-for-vercel-preview@v1.3.2
-        id: vercel-preview
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          max_timeout: 120
+      - name: Build app
+        run: bun run build
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
 
       - name: Run E2E tests
         run: bun test:e2e
         env:
-          PLAYWRIGHT_BASE_URL: ${{ steps.vercel-preview.outputs.url }}
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}

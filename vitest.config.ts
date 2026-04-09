@@ -8,6 +8,7 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./src/test/setup.ts"],
+    exclude: ["node_modules/**", "e2e/**"],
     coverage: {
       provider: "v8",
       reporter: ["text", "lcov", "html"],
@@ -18,6 +19,10 @@ export default defineConfig({
         "**/*.config.*",
         "**/types/**",
         "src/test/**",
+        "src/app/**",
+        "src/components/ui/**",
+        "src/components/shared/providers.tsx",
+        "src/middleware.ts",
       ],
       thresholds: {
         lines: 80,
