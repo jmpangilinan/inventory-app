@@ -13,6 +13,7 @@ import type { Category } from "@/api/model";
 import { DataTable } from "@/components/shared/data-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useDebounce } from "@/hooks/use-debounce";
 import type { CategoryFormValues } from "@/lib/validations/category";
 import { getCategoryColumns } from "./category-columns";
 import { CategoryDeleteDialog } from "./category-delete-dialog";
@@ -20,12 +21,16 @@ import { CategoryForm } from "./category-form";
 
 export function CategoriesTable() {
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   const [formOpen, setFormOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
-  const { data, refetch } = useCategoriesList();
+  const debouncedSearch = useDebounce(search, 400);
+
+  const { data, refetch } = useCategoriesList({ page, per_page: 15 });
   const categories = data?.data ?? [];
+  const meta = data?.meta;
 
   const createMutation = useCategoriesCreate({
     mutation: {
@@ -86,6 +91,7 @@ export function CategoriesTable() {
 
   const columns = getCategoryColumns({ onEdit: handleEdit, onDelete: handleDelete });
   const isPendingForm = createMutation.isPending || updateMutation.isPending;
+  const lastPage = (meta?.last_page as number) ?? 1;
 
   return (
     <div className="space-y-4">
@@ -93,7 +99,10 @@ export function CategoriesTable() {
         <Input
           placeholder="Search categories…"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setPage(1);
+          }}
           className="max-w-xs"
         />
         <Button
@@ -110,9 +119,37 @@ export function CategoriesTable() {
       <DataTable
         columns={columns}
         data={categories}
-        globalFilter={search}
+        globalFilter={debouncedSearch}
         onGlobalFilterChange={setSearch}
+        manualPagination
+        pageCount={lastPage}
       />
+
+      {lastPage > 1 && (
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <span>
+            Showing {categories.length} of {meta?.total as number} categories
+          </span>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page === 1}
+              onClick={() => setPage((p) => p - 1)}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page === lastPage}
+              onClick={() => setPage((p) => p + 1)}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
+      )}
 
       <CategoryForm
         open={formOpen}

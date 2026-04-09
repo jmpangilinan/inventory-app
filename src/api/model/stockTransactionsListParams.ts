@@ -7,5 +7,9 @@
  */
 
 export type StockTransactionsListParams = {
+/**
+ * Items per page (1–100)
+ */
+per_page?: number;
 page?: number;
 };

@@ -66,7 +66,12 @@ export function StockTransactionsTable() {
           }}
         >
           <SelectTrigger className="max-w-xs">
-            <SelectValue placeholder="Select a product…" />
+            <SelectValue placeholder="Select a product…">
+              {(value: string | null) => {
+                if (!value) return null;
+                return products.find((p) => String(p.id) === value)?.name ?? null;
+              }}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {products.map((p) => (

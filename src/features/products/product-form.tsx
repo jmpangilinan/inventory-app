@@ -34,7 +34,7 @@ export function ProductForm({
 }: ProductFormProps) {
   const isEdit = !!product;
 
-  const { data: categoriesData } = useCategoriesList();
+  const { data: categoriesData } = useCategoriesList({ per_page: 100 });
   const categories = categoriesData?.data ?? [];
 
   const {
@@ -117,13 +117,24 @@ export function ProductForm({
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1.5">
           <Label htmlFor="price">Price (PHP)</Label>
-          <Input id="price" type="number" step="0.01" min="0" {...register("price")} />
+          <Input
+            id="price"
+            type="number"
+            step="0.01"
+            min="0"
+            {...register("price", { valueAsNumber: true })}
+          />
           {errors.price && <p className="text-xs text-destructive">{errors.price.message}</p>}
         </div>
 
         <div className="space-y-1.5">
           <Label htmlFor="stock_quantity">Stock Quantity</Label>
-          <Input id="stock_quantity" type="number" min="0" {...register("stock_quantity")} />
+          <Input
+            id="stock_quantity"
+            type="number"
+            min="0"
+            {...register("stock_quantity", { valueAsNumber: true })}
+          />
         </div>
       </div>
 
@@ -134,7 +145,7 @@ export function ProductForm({
             id="low_stock_threshold"
             type="number"
             min="0"
-            {...register("low_stock_threshold")}
+            {...register("low_stock_threshold", { valueAsNumber: true })}
           />
         </div>
 
@@ -145,7 +156,12 @@ export function ProductForm({
             onValueChange={(val) => setValue("category_id", Number(val))}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select category" />
+              <SelectValue placeholder="Select category">
+                {(value: string | null) => {
+                  if (!value) return null;
+                  return categories.find((c) => String(c.id) === value)?.name ?? null;
+                }}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {categories.map((cat) => (
