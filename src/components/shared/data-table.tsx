@@ -103,7 +103,7 @@ export function DataTable<TData extends RowData>({
         </Table>
       </div>
 
-      {hasPagination && lastPage > 1 && (
+      {hasPagination && (
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>
             {totalCount !== undefined

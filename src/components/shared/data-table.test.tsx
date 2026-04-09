@@ -50,7 +50,7 @@ describe("DataTable", () => {
     expect(screen.queryByText("Beta")).not.toBeInTheDocument();
   });
 
-  it("does not render pagination when pageCount is 1", () => {
+  it("renders pagination even when pageCount is 1", () => {
     render(
       <DataTable
         columns={columns}
@@ -61,6 +61,12 @@ describe("DataTable", () => {
         onPageChange={() => {}}
       />,
     );
+    expect(screen.getByRole("button", { name: /previous/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /next/i })).toBeInTheDocument();
+  });
+
+  it("does not render pagination when page and onPageChange are not provided", () => {
+    render(<DataTable columns={columns} data={data} manualPagination pageCount={3} />);
     expect(screen.queryByRole("button", { name: /previous/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /next/i })).not.toBeInTheDocument();
   });
