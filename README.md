@@ -1,5 +1,10 @@
 # Inventory App
 
+[![CI](https://github.com/jmpangilinan/inventory-app/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/jmpangilinan/inventory-app/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/jmpangilinan/inventory-app/branch/develop/graph/badge.svg)](https://codecov.io/gh/jmpangilinan/inventory-app)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jmpangilinan_inventory-app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jmpangilinan_inventory-app)
+[![Vercel](https://img.shields.io/badge/vercel-deployed-brightgreen?logo=vercel)](https://inventory-app-puce-nine.vercel.app)
+
 A full-stack inventory and stock management frontend built with Next.js 16, consuming the [Inventory API](https://github.com/jmpangilinan/inventory-api) Laravel backend.
 
 ## Features
