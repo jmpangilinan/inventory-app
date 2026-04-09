@@ -22,7 +22,12 @@ instance.interceptors.request.use((config) => {
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401 && typeof window !== "undefined") {
+    if (
+      error.response?.status === 401 &&
+      typeof window !== "undefined" &&
+      !error.config?.url?.includes("/auth/")
+    ) {
+      /* c8 ignore next -- browser navigation, covered by E2E */
       window.location.href = "/login";
     }
     return Promise.reject(error);

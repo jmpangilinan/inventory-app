@@ -6,17 +6,17 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useAuthLogin } from "@/api/generated/auth/auth";
+import { useAuthRegister } from "@/api/generated/auth/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { type LoginFormData, loginSchema } from "@/lib/validations/auth";
+import { type RegisterFormData, registerSchema } from "@/lib/validations/auth";
 import { useAuthStore } from "@/stores/auth.store";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
-  const { setAuth, isAuthenticated } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -28,27 +28,24 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
   });
 
-  const { mutate: login, isPending } = useAuthLogin({
+  const { mutate: registerUser, isPending } = useAuthRegister({
     mutation: {
-      onSuccess: (data) => {
-        if (data.data && data.token) {
-          setAuth(data.data, data.token);
-          toast.success("Welcome back!");
-          router.push("/dashboard");
-        }
+      onSuccess: () => {
+        toast.success("Account created! Please sign in.");
+        router.push("/login");
       },
       onError: () => {
-        toast.error("Invalid email or password.");
+        toast.error("Registration failed. Email may already be in use.");
       },
     },
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    login({ data });
+  const onSubmit = (data: RegisterFormData) => {
+    registerUser({ data });
   };
 
   return (
@@ -56,10 +53,22 @@ export default function LoginPage() {
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Inventory App</CardTitle>
-          <CardDescription>Sign in to your account</CardDescription>
+          <CardDescription>Create your account</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div className="space-y-1">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="Juan dela Cruz"
+                autoComplete="name"
+                {...register("name")}
+              />
+              {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
+            </div>
+
             <div className="space-y-1">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -78,7 +87,7 @@ export default function LoginPage() {
                 id="password"
                 type="password"
                 placeholder="••••••••"
-                autoComplete="current-password"
+                autoComplete="new-password"
                 {...register("password")}
               />
               {errors.password && (
@@ -86,17 +95,31 @@ export default function LoginPage() {
               )}
             </div>
 
+            <div className="space-y-1">
+              <Label htmlFor="password_confirmation">Confirm Password</Label>
+              <Input
+                id="password_confirmation"
+                type="password"
+                placeholder="••••••••"
+                autoComplete="new-password"
+                {...register("password_confirmation")}
+              />
+              {errors.password_confirmation && (
+                <p className="text-sm text-destructive">{errors.password_confirmation.message}</p>
+              )}
+            </div>
+
             <Button type="submit" className="w-full" disabled={isPending}>
-              {isPending ? "Signing in…" : "Sign in"}
+              {isPending ? "Creating account…" : "Create account"}
             </Button>
 
             <p className="text-center text-sm text-muted-foreground">
-              Don&apos;t have an account?{" "}
+              Already have an account?{" "}
               <Link
-                href="/register"
+                href="/login"
                 className="text-foreground underline underline-offset-4 hover:text-primary"
               >
-                Sign up
+                Sign in
               </Link>
             </p>
           </form>

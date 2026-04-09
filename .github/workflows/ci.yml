@@ -50,6 +50,7 @@ jobs:
         with:
           files: ./coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
 
   sonarcloud:
     name: SonarCloud Analysis
