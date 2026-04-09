@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useProductsLowStock } from "@/api/generated/products/products";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -43,12 +44,14 @@ function NavLink({
   icon: Icon,
   collapsed = false,
   onClick,
+  badge,
 }: {
   href: string;
   label: string;
   icon: React.ElementType;
   collapsed?: boolean;
   onClick?: () => void;
+  badge?: number;
 }) {
   const pathname = usePathname();
   const isActive = pathname === href || (href !== "/dashboard" && pathname.startsWith(href));
@@ -65,7 +68,12 @@ function NavLink({
       )}
     >
       <Icon className="size-4 shrink-0" />
-      {!collapsed && <span>{label}</span>}
+      {!collapsed && <span className="flex-1">{label}</span>}
+      {!collapsed && badge ? (
+        <span className="flex size-5 items-center justify-center rounded-full bg-destructive text-[10px] font-semibold text-destructive-foreground">
+          {badge > 99 ? "99+" : badge}
+        </span>
+      ) : null}
     </Link>
   );
 
@@ -140,6 +148,9 @@ function UserMenu({ collapsed = false }: { collapsed?: boolean }) {
 }
 
 function SidebarContent({ onNavClick }: { onNavClick?: () => void }) {
+  const { data: lowStockData } = useProductsLowStock();
+  const lowStockCount = lowStockData?.data?.length ?? 0;
+
   return (
     <>
       <div className="flex h-14 items-center gap-2 border-b px-4">
@@ -149,7 +160,12 @@ function SidebarContent({ onNavClick }: { onNavClick?: () => void }) {
 
       <nav className="flex-1 space-y-0.5 overflow-y-auto p-2">
         {navItems.map((item) => (
-          <NavLink key={item.href} {...item} onClick={onNavClick} />
+          <NavLink
+            key={item.href}
+            {...item}
+            onClick={onNavClick}
+            badge={item.href === "/products" && lowStockCount > 0 ? lowStockCount : undefined}
+          />
         ))}
       </nav>
 
